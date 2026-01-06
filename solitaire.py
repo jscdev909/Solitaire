@@ -879,7 +879,7 @@ while running:
     if foundation_piles[0] and foundation_piles[1] and foundation_piles[2] and foundation_piles[3]:
        if foundation_piles[0][-1].rank == 13 and foundation_piles[1][-1].rank == 13 and foundation_piles[2][-1].rank == 13 and foundation_piles[3][-1].rank == 13:
             draggable_cards = []
-            font = pygame.font.SysFont('Arial', 42)
+            font = pygame.font.SysFont('Arial', 60)
             winner_text = font.render("YOU WIN!", True, WHITE, DARK_GREEN)
             winner_text_rect = winner_text.get_rect()
             winner_text_rect.centerx = WINDOW_WIDTH//2
