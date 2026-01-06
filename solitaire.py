@@ -17,7 +17,7 @@ def get_path(filename):
 pygame.init()
 
 WINDOW_WIDTH = 925
-WINDOW_HEIGHT = 750
+WINDOW_HEIGHT = 775
 display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Solitaire")
 
