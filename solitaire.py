@@ -1,8 +1,13 @@
+#!/usr/bin/env python
+
+"""solitaire.py: A simple game of solitaire using the pygame engine"""
+
 import sys
 from card import *
 
 
 def get_path(filename):
+    """Gets the current path for an executable built with pyinstaller"""
     if hasattr(sys, "_MEIPASS"):
         return os.path.join(sys._MEIPASS, filename)
     else:
