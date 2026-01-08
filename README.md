@@ -4,8 +4,8 @@ The classic game of Solitaire written entirely in Python using Pygame! My first 
 
 ### Running the game
 
-To run the main script (solitaire.py) using python, you will need both the card module (included in the repo, provides card helper classes and functions) and pygame-ce (Pygame Community Edition, install using pip).
-<br><br>For executable files with all dependencies included, check out the release page!
+To run the main script (solitaire.py) using Python (preferably version 3.14.2), you will need both the card module (included in the repo) and pygame-ce (Pygame Community Edition, install using pip).
+<br><br>For all-in-one executable files with all dependencies included, check out the releases page here!
 
 ### Asset Credits
 
