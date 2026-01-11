@@ -1,4 +1,4 @@
-<img width="927" height="807" alt="image" src="https://github.com/user-attachments/assets/b27ae7ad-84c7-4b3b-9036-7d436c5de8cf" />
+<img width="927" height="807" alt="image" src="https://github.com/user-attachments/assets/82216a7c-349e-40cd-a304-5cab92617dfc" />
 
 The classic game of Solitaire written entirely in Python using Pygame! My first project with Pygame, which took around 4 days to complete.
 
