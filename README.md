@@ -11,7 +11,7 @@ To run the main script (solitaire.py) using Python (preferably version 3.14.2), 
 
 - Playing cards (by Byron Knoll, open source/public domain license): https://opengameart.org/content/playing-cards-vector-png
 - Red card back (by jeffshee, [Creative Commons 3.0 license](https://creativecommons.org/licenses/by/3.0/)): https://opengameart.org/content/colorful-poker-card-back
-- Icon used for release executables (by Oxygen Team, [LGPL license](https://www.gnu.org/licenses/lgpl-3.0.html)): https://www.iconarchive.com/show/oxygen-icons-by-oxygen-icons.org/Categories-applications-games-icon.html
+- Icon used for Windows/macOS release executables (by Oxygen Team, [LGPL license](https://www.gnu.org/licenses/lgpl-3.0.html)): https://www.iconarchive.com/show/oxygen-icons-by-oxygen-icons.org/Categories-applications-games-icon.html
 
 ### Special Thanks
 - [Stack Overflow](stackoverflow.com) and its many contributors, for a lot of answers on relevant Python questions and for providing the source code for the get_path helper function used in my solitaire.py script
