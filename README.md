@@ -2,6 +2,8 @@
 
 The classic game of Solitaire written entirely in Python using Pygame! My first project with Pygame, which took around 4 days to complete.
 
+*IMPORTANT*: Everything in this repository not in the "assets" folder has been released under the MIT license. Each asset in the "assets" folder has been released previously under different licenses detailed below.
+
 ### Running the game
 
 To run the main script (solitaire.py) using Python (preferably version 3.14.2), you will need both the card module (included in the repo) and pygame-ce (Pygame Community Edition, install using pip).
