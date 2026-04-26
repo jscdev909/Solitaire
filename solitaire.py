@@ -1,10 +1,14 @@
-#!/usr/bin/env python
-
-"""solitaire.py: A simple game of solitaire using the pygame engine"""
-
 import sys
+import pygame
 import pygame_gui
-from card import *
+from pathlib import Path
+from card import (create_deck,
+                  Card,
+                  deal,
+                  CardPosition,
+                  is_valid_move,
+                  unlink_cards,
+                  link_cards)
 
 
 WINDOW_WIDTH = 925
@@ -16,26 +20,26 @@ WHITE = (255, 255, 255)
 FPS = 60
 
 
-def get_path(filename):
+def get_path(filename: Path) -> Path:
     """Gets the current path for an executable built with pyinstaller"""
     if hasattr(sys, "_MEIPASS"):
-        return os.path.join(sys._MEIPASS, filename)
+        return Path(sys._MEIPASS) / filename
     else:
         return filename
 
 
 def main(display_surface: pygame.Surface):
 
-    deck = create_deck(get_path("assets/card_faces"))
-    card_back_image = pygame.image.load(get_path("assets/card_back_red.png")).convert_alpha()
+    deck = create_deck(get_path(Path("assets") / "card_faces"))
+    card_back_image = pygame.image.load(get_path(Path("assets") / "card_back_red.png")).convert_alpha()
     card_back_image = pygame.transform.scale(card_back_image, (100, 150))
     card_back = Card("card_back", card_back_image)
 
     foundation_piles = [[], [], [], []]
-    foundation_pile1_rect = None
-    foundation_pile2_rect = None
-    foundation_pile3_rect = None
-    foundation_pile4_rect = None
+    foundation_pile1_rect = pygame.Rect()
+    foundation_pile2_rect = pygame.Rect()
+    foundation_pile3_rect = pygame.Rect()
+    foundation_pile4_rect = pygame.Rect()
 
     discard_pile = []
     tableau_piles, stock_pile = deal(deck)
@@ -59,7 +63,7 @@ def main(display_surface: pygame.Surface):
     draggable_cards = [card for pile in tableau_piles for card in pile if card.position == CardPosition.FACE_UP]
 
     currently_dragging_card = False
-    card_being_dragged = None
+    card_being_dragged: Card | None = None
     reset_stock_pile_circle = None
     original_dragging_x = 0
     original_dragging_y = 0
@@ -116,7 +120,7 @@ def main(display_surface: pygame.Surface):
 
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
-                    if currently_dragging_card:
+                    if currently_dragging_card and card_being_dragged:
                         for card in draggable_cards:
                             if (card_being_dragged.rect.colliderect(card.rect) and
                                     is_valid_move(card_being_dragged, card) and
@@ -889,7 +893,7 @@ def main(display_surface: pygame.Surface):
             for foundation_pile in foundation_piles:
                 for foundation_card in foundation_pile:
                     display_surface.blit(foundation_card.surface, foundation_card.rect)
-            if currently_dragging_card:
+            if currently_dragging_card and card_being_dragged:
                 display_surface.blit(card_being_dragged.surface, card_being_dragged.rect)
                 if card_being_dragged.linked_cards:
                     for linked_card in card_being_dragged.linked_cards:

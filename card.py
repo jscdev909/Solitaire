@@ -1,6 +1,7 @@
 import random
 import os
 import pygame
+from pathlib import Path
 from enum import Enum
 
 
@@ -71,7 +72,7 @@ def is_valid_move(top: Card, bottom: Card) -> bool:
         return False
 
 
-def create_deck(directory: str) -> list[Card]:
+def create_deck(directory: Path) -> list[Card]:
     cards = []
     for filename in os.listdir(directory):
         image_surface = pygame.image.load(os.path.join(directory, filename)).convert_alpha()
