@@ -36,10 +36,10 @@ def main(display_surface: pygame.Surface):
     card_back = Card("card_back", card_back_image)
 
     foundation_piles = [[], [], [], []]
-    foundation_pile1_rect = pygame.Rect()
-    foundation_pile2_rect = pygame.Rect()
-    foundation_pile3_rect = pygame.Rect()
-    foundation_pile4_rect = pygame.Rect()
+    foundation_pile1_rect = None
+    foundation_pile2_rect = None
+    foundation_pile3_rect = None
+    foundation_pile4_rect = None
 
     discard_pile = []
     tableau_piles, stock_pile = deal(deck)
@@ -180,7 +180,7 @@ def main(display_surface: pygame.Surface):
                                 card_being_dragged = None
                                 break
                         else:
-                            if foundation_pile1_rect.colliderect(card_being_dragged.rect):
+                            if foundation_pile1_rect is not None and foundation_pile1_rect.colliderect(card_being_dragged.rect):
                                 if not foundation_piles[0]:
                                     if card_being_dragged.rank == 1 and not card_being_dragged.linked_cards:
 
@@ -268,7 +268,7 @@ def main(display_surface: pygame.Surface):
                                         currently_dragging_card = False
                                         card_being_dragged = None
 
-                            elif foundation_pile2_rect.colliderect(card_being_dragged.rect):
+                            elif foundation_pile2_rect is not None and foundation_pile2_rect.colliderect(card_being_dragged.rect):
                                 if not foundation_piles[1]:
                                     if card_being_dragged.rank == 1 and not card_being_dragged.linked_cards:
 
@@ -357,7 +357,7 @@ def main(display_surface: pygame.Surface):
                                         card_being_dragged = None
 
 
-                            elif foundation_pile3_rect.colliderect(card_being_dragged.rect):
+                            elif foundation_pile3_rect is not None and foundation_pile3_rect.colliderect(card_being_dragged.rect):
                                 if not foundation_piles[2]:
                                     if card_being_dragged.rank == 1 and not card_being_dragged.linked_cards:
 
@@ -445,7 +445,7 @@ def main(display_surface: pygame.Surface):
                                         currently_dragging_card = False
                                         card_being_dragged = None
 
-                            elif foundation_pile4_rect.colliderect(card_being_dragged.rect):
+                            elif foundation_pile4_rect is not None and foundation_pile4_rect.colliderect(card_being_dragged.rect):
                                 if not foundation_piles[3]:
                                     if card_being_dragged.rank == 1 and not card_being_dragged.linked_cards:
 
