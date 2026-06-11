@@ -36,10 +36,10 @@ def main(display_surface: pygame.Surface):
     card_back = Card("card_back", card_back_image)
 
     foundation_piles = [[], [], [], []]
-    foundation_pile1_rect = None
-    foundation_pile2_rect = None
-    foundation_pile3_rect = None
-    foundation_pile4_rect = None
+    foundation_pile1_rect = pygame.Rect()
+    foundation_pile2_rect = pygame.Rect()
+    foundation_pile3_rect = pygame.Rect()
+    foundation_pile4_rect = pygame.Rect()
 
     discard_pile = []
     tableau_piles, stock_pile = deal(deck)
@@ -52,19 +52,19 @@ def main(display_surface: pygame.Surface):
                                   (tableau_piles[5][0].rect.x, tableau_piles[5][0].rect.y),
                                   (tableau_piles[6][0].rect.x, tableau_piles[6][0].rect.y)]
 
-    king_placeholder1_rect = None
-    king_placeholder2_rect = None
-    king_placeholder3_rect = None
-    king_placeholder4_rect = None
-    king_placeholder5_rect = None
-    king_placeholder6_rect = None
-    king_placeholder7_rect = None
+    king_placeholder1_rect = pygame.Rect()
+    king_placeholder2_rect = pygame.Rect()
+    king_placeholder3_rect = pygame.Rect()
+    king_placeholder4_rect = pygame.Rect()
+    king_placeholder5_rect = pygame.Rect()
+    king_placeholder6_rect = pygame.Rect()
+    king_placeholder7_rect = pygame.Rect()
 
     draggable_cards = [card for pile in tableau_piles for card in pile if card.position == CardPosition.FACE_UP]
 
     currently_dragging_card = False
     card_being_dragged: Card | None = None
-    reset_stock_pile_circle = None
+    reset_stock_pile_circle = pygame.Rect()
     original_dragging_x = 0
     original_dragging_y = 0
 
@@ -73,6 +73,9 @@ def main(display_surface: pygame.Surface):
     reset_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((25, WINDOW_HEIGHT - 75, 100, 50)), text="Reset", manager=manager)
 
     clock = pygame.time.Clock()
+
+    win_triggered = False
+
     running = True
 
     while running:
@@ -107,7 +110,7 @@ def main(display_surface: pygame.Surface):
                         if len(discard_pile) > 0:
                             draggable_cards.append(discard_pile[-1])
 
-                    if reset_stock_pile_circle is not None and reset_stock_pile_circle.collidepoint(pygame.mouse.get_pos()):
+                    if reset_stock_pile_circle.collidepoint(pygame.mouse.get_pos()):
                         if discard_pile:
                             draggable_cards.remove(discard_pile[-1])
                             stock_pile = discard_pile
@@ -116,7 +119,7 @@ def main(display_surface: pygame.Surface):
                                 card.rect.x = 25
                                 card.rect.y = 25
                             discard_pile = []
-                            reset_stock_pile_circle = None
+                            reset_stock_pile_circle = pygame.Rect()
 
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
@@ -180,7 +183,7 @@ def main(display_surface: pygame.Surface):
                                 card_being_dragged = None
                                 break
                         else:
-                            if foundation_pile1_rect is not None and foundation_pile1_rect.colliderect(card_being_dragged.rect):
+                            if foundation_pile1_rect.colliderect(card_being_dragged.rect):
                                 if not foundation_piles[0]:
                                     if card_being_dragged.rank == 1 and not card_being_dragged.linked_cards:
 
@@ -268,7 +271,7 @@ def main(display_surface: pygame.Surface):
                                         currently_dragging_card = False
                                         card_being_dragged = None
 
-                            elif foundation_pile2_rect is not None and foundation_pile2_rect.colliderect(card_being_dragged.rect):
+                            elif foundation_pile2_rect.colliderect(card_being_dragged.rect):
                                 if not foundation_piles[1]:
                                     if card_being_dragged.rank == 1 and not card_being_dragged.linked_cards:
 
@@ -357,7 +360,7 @@ def main(display_surface: pygame.Surface):
                                         card_being_dragged = None
 
 
-                            elif foundation_pile3_rect is not None and foundation_pile3_rect.colliderect(card_being_dragged.rect):
+                            elif foundation_pile3_rect.colliderect(card_being_dragged.rect):
                                 if not foundation_piles[2]:
                                     if card_being_dragged.rank == 1 and not card_being_dragged.linked_cards:
 
@@ -445,7 +448,7 @@ def main(display_surface: pygame.Surface):
                                         currently_dragging_card = False
                                         card_being_dragged = None
 
-                            elif foundation_pile4_rect is not None and foundation_pile4_rect.colliderect(card_being_dragged.rect):
+                            elif foundation_pile4_rect.colliderect(card_being_dragged.rect):
                                 if not foundation_piles[3]:
                                     if card_being_dragged.rank == 1 and not card_being_dragged.linked_cards:
 
@@ -537,7 +540,7 @@ def main(display_surface: pygame.Surface):
                             elif not tableau_piles[0] or not tableau_piles[1] or not tableau_piles[2] or not tableau_piles[3] or not tableau_piles[4] or not tableau_piles[5] or not tableau_piles[6]:
                                 if card_being_dragged.rank == 13:
 
-                                    if king_placeholder1_rect is not None and card_being_dragged.rect.colliderect(king_placeholder1_rect):
+                                    if card_being_dragged.rect.colliderect(king_placeholder1_rect):
 
                                         if card_being_dragged.current_tableau is None:
                                             discard_pile.remove(card_being_dragged)
@@ -573,7 +576,7 @@ def main(display_surface: pygame.Surface):
                                         card_being_dragged = None
 
 
-                                    elif king_placeholder2_rect is not None and card_being_dragged.rect.colliderect(king_placeholder2_rect):
+                                    elif card_being_dragged.rect.colliderect(king_placeholder2_rect):
 
                                         if card_being_dragged.current_tableau is None:
                                             discard_pile.remove(card_being_dragged)
@@ -609,7 +612,7 @@ def main(display_surface: pygame.Surface):
                                         card_being_dragged = None
 
 
-                                    elif king_placeholder3_rect is not None and card_being_dragged.rect.colliderect(king_placeholder3_rect):
+                                    elif card_being_dragged.rect.colliderect(king_placeholder3_rect):
 
                                         if card_being_dragged.current_tableau is None:
                                             discard_pile.remove(card_being_dragged)
@@ -645,7 +648,7 @@ def main(display_surface: pygame.Surface):
                                         card_being_dragged = None
 
 
-                                    elif king_placeholder4_rect is not None and card_being_dragged.rect.colliderect(king_placeholder4_rect):
+                                    elif card_being_dragged.rect.colliderect(king_placeholder4_rect):
 
                                         if card_being_dragged.current_tableau is None:
                                             discard_pile.remove(card_being_dragged)
@@ -681,7 +684,7 @@ def main(display_surface: pygame.Surface):
                                         card_being_dragged = None
 
 
-                                    elif king_placeholder5_rect is not None and card_being_dragged.rect.colliderect(king_placeholder5_rect):
+                                    elif card_being_dragged.rect.colliderect(king_placeholder5_rect):
 
                                         if card_being_dragged.current_tableau is None:
                                             discard_pile.remove(card_being_dragged)
@@ -717,7 +720,7 @@ def main(display_surface: pygame.Surface):
                                         card_being_dragged = None
 
 
-                                    elif king_placeholder6_rect is not None and card_being_dragged.rect.colliderect(king_placeholder6_rect):
+                                    elif card_being_dragged.rect.colliderect(king_placeholder6_rect):
 
                                         if card_being_dragged.current_tableau is None:
                                             discard_pile.remove(card_being_dragged)
@@ -753,7 +756,7 @@ def main(display_surface: pygame.Surface):
                                         card_being_dragged = None
 
 
-                                    elif king_placeholder7_rect is not None and card_being_dragged.rect.colliderect(king_placeholder7_rect):
+                                    elif card_being_dragged.rect.colliderect(king_placeholder7_rect):
 
                                         if card_being_dragged.current_tableau is None:
                                             discard_pile.remove(card_being_dragged)
@@ -859,24 +862,25 @@ def main(display_surface: pygame.Surface):
                         display_surface.blit(card_back.surface, card_back.rect)
                     elif card.position == CardPosition.FACE_UP:
                         display_surface.blit(card.surface, card.rect)
-            # Get empty tableaus
-            empty_tableaus_nums = [i for i, _ in enumerate(tableau_piles) if not tableau_piles[i]]
-            # Draw king placeholders
-            for empty_tableau_num in empty_tableaus_nums:
-                if empty_tableau_num == 0:
-                    king_placeholder1_rect = pygame.draw.rect(display_surface, WHITE, (king_placeholder_locations[0][0], king_placeholder_locations[0][1], 100, 150), 2)
-                elif empty_tableau_num == 1:
-                    king_placeholder2_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[1][0], king_placeholder_locations[1][1], 100, 150), 2)
-                elif empty_tableau_num == 2:
-                    king_placeholder3_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[2][0], king_placeholder_locations[2][1], 100, 150), 2)
-                elif empty_tableau_num == 3:
-                    king_placeholder4_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[3][0], king_placeholder_locations[3][1], 100, 150), 2)
-                elif empty_tableau_num == 4:
-                    king_placeholder5_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[4][0], king_placeholder_locations[4][1], 100, 150), 2)
-                elif empty_tableau_num == 5:
-                    king_placeholder6_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[5][0], king_placeholder_locations[5][1], 100, 150), 2)
-                elif empty_tableau_num == 6:
-                    king_placeholder7_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[6][0], king_placeholder_locations[6][1], 100, 150), 2)
+            if not win_triggered:
+                # Get empty tableaus
+                empty_tableaus_nums = [i for i, _ in enumerate(tableau_piles) if not tableau_piles[i]]
+                # Draw king placeholders
+                for empty_tableau_num in empty_tableaus_nums:
+                    if empty_tableau_num == 0:
+                        king_placeholder1_rect = pygame.draw.rect(display_surface, WHITE, (king_placeholder_locations[0][0], king_placeholder_locations[0][1], 100, 150), 2)
+                    elif empty_tableau_num == 1:
+                        king_placeholder2_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[1][0], king_placeholder_locations[1][1], 100, 150), 2)
+                    elif empty_tableau_num == 2:
+                        king_placeholder3_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[2][0], king_placeholder_locations[2][1], 100, 150), 2)
+                    elif empty_tableau_num == 3:
+                        king_placeholder4_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[3][0], king_placeholder_locations[3][1], 100, 150), 2)
+                    elif empty_tableau_num == 4:
+                        king_placeholder5_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[4][0], king_placeholder_locations[4][1], 100, 150), 2)
+                    elif empty_tableau_num == 5:
+                        king_placeholder6_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[5][0], king_placeholder_locations[5][1], 100, 150), 2)
+                    elif empty_tableau_num == 6:
+                        king_placeholder7_rect = pygame.draw.rect(display_surface, WHITE,(king_placeholder_locations[6][0], king_placeholder_locations[6][1], 100, 150), 2)
 
             if len(stock_pile) == 0:
                 reset_stock_pile_circle = pygame.draw.circle(display_surface, WHITE, (75, 100), 50, 2)
@@ -904,11 +908,12 @@ def main(display_surface: pygame.Surface):
                if foundation_piles[0][-1].rank == 13 and foundation_piles[1][-1].rank == 13 and foundation_piles[2][-1].rank == 13 and foundation_piles[3][-1].rank == 13:
                     draggable_cards = []
                     font = pygame.font.SysFont('Arial', 60)
-                    winner_text = font.render("YOU WIN!", True, WHITE, DARK_GREEN)
+                    winner_text = font.render("YOU WIN!", True, WHITE)
                     winner_text_rect = winner_text.get_rect()
                     winner_text_rect.centerx = WINDOW_WIDTH//2
                     winner_text_rect.centery = WINDOW_HEIGHT//2
                     display_surface.blit(winner_text, winner_text_rect)
+                    win_triggered = True
 
             manager.draw_ui(display_surface)
 
